@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>SoccerFlaw_Ai</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- ─── FLOATING SYMBOLS ─── -->
+  <div class="math-bg" aria-hidden="true">
+    <span style="top:6%;left:4%;font-size:1rem;">⚽</span>
+    <span style="top:22%;left:92%;font-size:.85rem;">F=ma</span>
+    <span style="top:45%;left:3%;font-size:.75rem;">∇v</span>
+    <span style="top:65%;left:94%;font-size:.9rem;">LLM</span>
+    <span style="top:82%;left:8%;font-size:.7rem;">quiz()</span>
+    <span style="top:15%;left:50%;font-size:.65rem;">swipe→</span>
+    <span style="top:33%;left:75%;font-size:.7rem;">Rigidbody</span>
+    <span style="top:70%;left:40%;font-size:.65rem;">AddForce()</span>
+  </div>
+
+  <!-- ─── NAV ─── -->
+  <nav>
+    <span class="nav-logo" id="c-nav-logo">» SoccerFlaw_Ai</span>
+    <ul class="nav-links">
+      <li><a href="#gioco">il gioco</a></li>
+      <li><a href="#unity">unity</a></li>
+      <li><a href="#challenge1">llm</a></li>
+      <li><a href="#challenge2">joystick</a></li>
+      <li><a href="#contact">link</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── § 01 — IL GIOCO ─── -->
+  <section class="content fade" id="gioco" style="margin-top:60px;padding-top:4rem;">
+    <div class="sec-wrap">
+      <span class="sec-num">§ 01</span>
+      <h2>SoccerFlaw_Ai</h2>
+    </div>
+
+    <p class="section-intro">
+      Un gioco casual dove il giocatore tira un pallone da calcio per colpire la risposta giusta a un quiz. Fisica, intelligenza artificiale generativa e un controller remoto via webapp da telefono.
+    </p>
+
+    <div class="authors-block fade">
+      <div class="author-row">
+        <span class="author-icon">👤</span>
+        <span class="author-name">Silviu Rober Plesoiu</span>
+        <span class="author-mat">mat. 7051276</span>
+      </div>
+      <div class="author-row">
+        <span class="author-icon">👤</span>
+        <span class="author-name">Mihai Claudiu Flore</span>
+        <span class="author-mat">mat. 7190159</span>
+      </div>
+    </div>
+
+
+    <div class="screenshot-hero fade">
+      <div class="sh-badge">GAMEPLAY</div>
+      <div class="sh-inner">
+        <div class="sh-question">8 + 3 = ?</div>
+        <div class="sh-grid">
+          <div class="sh-tile blue">7</div>
+          <div class="sh-tile green">16 ✓</div>
+          <div class="sh-tile red">14</div>
+          <div class="sh-tile red">11</div>
+          <div class="sh-tile red">10</div>
+          <div class="sh-tile blue">15</div>
+          <div class="sh-tile blue">9</div>
+          <div class="sh-tile blue">8</div>
+          <div class="sh-tile green">12</div>
+        </div>
+        <div class="sh-ball">⚽</div>
+        <div class="sh-trail"></div>
+      </div>
+    </div>
+
+    <div class="theory-boxes fade">
+      <div class="box curiosity">
+        <div class="box-label">IL CONCEPT — Serious Game</div>
+        <div class="box-title">Imparare tirando in porta</div>
+        <p>
+          In cima allo schermo compare una domanda — matematica, storia, scienze, qualunque materia. Sotto, una griglia di pannelli colorati con possibili risposte. Il giocatore impugna il telefono, fa uno swipe per mirare e tira il pallone. Se colpisce il pannello corretto, punto. Se sbaglia, il pallone torna e si riprova.
+        </p>
+        <p>
+          SoccerFlaw è un <strong>serious game</strong>: la meccanica del tiro mantiene l'engagement mentre il quiz veicola il contenuto educativo.
+        </p>
+      </div>
+
+
+    </div>
+
+    <!-- IMAGE SLIDER -->
+    <div class="slider-block fade" style="margin:2rem 0;">
+      <div class="slider-hdr">
+        <span class="sec-num" style="font-size:.6rem;">SCREENS</span>
+        <span class="slider-label">SoccerFlaw — Screenshot</span>
+        <div class="slider-nav-btns">
+          <button class="sl-arrow" id="sfPrev" aria-label="precedente">‹</button>
+          <span class="sl-counter" id="sfCounter">…</span>
+          <button class="sl-arrow" id="sfNext" aria-label="successivo">›</button>
+        </div>
+      </div>
+      <div class="slider-track-wrap" id="sfTrack">
+        <div class="slider-track" id="sfSlides"></div>
+      </div>
+      <div class="slider-dots" id="sfDots"></div>
+    </div>
+
+  </section>
+
+  <!-- ─── § 02 — UNITY & FISICA ─── -->
+  <section class="content fade" id="unity">
+    <div class="sec-wrap">
+      <span class="sec-num">§ 02</span>
+      <h2>Unity — Fisica, Collisioni e Game Loop</h2>
+    </div>
+
+    <p class="section-intro">
+      Il progetto copre i seguenti argomenti di Unity: fisica, collisioni, state machine, UI, prefab, audio e animazioni.
+    </p>
+
+    <div class="theory-boxes">
+
+      <div class="box def fade">
+        <div class="box-label">FISICA — Rigidbody & ForceMode</div>
+        <div class="box-title">Il calcio del pallone</div>
+        <p>
+          Il gesto del tiro si traduce direttamente in fisica simulata. Allo swipe del giocatore corrisponde una chiamata a <code>Rigidbody.AddForce()</code> con un vettore calcolato dalla direzione e dall'intensità del gesto. Entrano in gioco <strong>massa</strong>, <strong>drag</strong> e <strong>angular drag</strong> del Rigidbody, la gestione di <code>ForceMode.Impulse</code> vs <code>ForceMode.Force</code>, e la proiezione nello spazio 3D del movimento 2D del pollice.
+        </p>
+
+      </div>
+
+      <div class="box thm fade">
+        <div class="box-label">COLLISIONI — Trigger & Collision</div>
+        <div class="box-title">Colpire la risposta giusta</div>
+        <p>
+          Ogni pannello-risposta è un oggetto con <strong>Collider</strong>. La distinzione tra <code>OnCollisionEnter</code> (fisica reale, rimbalzo) e <code>OnTriggerEnter</code> (zona di rilevamento senza risposta fisica) è centrale: i pannelli reagiscono fisicamente all'impatto, ma la logica di gioco — "hai preso quello giusto?" — vive in un trigger separato. Due sistemi, due compiti precisi.
+        </p>
+        <p>
+          I <strong>Physics Layer</strong> controllano cosa colpisce cosa: il pallone ignora la UI, i pannelli non interagiscono tra loro.
+        </p>
+      </div>
+
+      <div class="box prop fade">
+        <div class="box-label">ARCHITETTURA — Game Loop & State</div>
+        <div class="box-title">Round, punteggio e stato</div>
+        <p>
+          Il gioco gira attorno a un <strong>Game Manager</strong> che coordina tre stati: <em>Aiming</em> (il giocatore mira), <em>InFlight</em> (pallone in aria, input disabilitato), <em>Result</em> (valutazione, feedback, prossima domanda). È un pattern <strong>State Machine</strong> applicato con semplicità — perfetto per introdurre il concetto senza sovrastruttura.
+        </p>
+        <p>
+          Il punteggio, la streak di risposte corrette e il tempo rimasto vivono tutti nel Game Manager e alimentano la UI tramite eventi C#.
+        </p>
+      </div>
+
+      <div class="box def fade">
+        <div class="box-label">UI — Canvas & TextMeshPro</div>
+        <div class="box-title">La domanda e i pannelli</div>
+        <p>
+          La griglia di risposte è costruita con un <strong>Grid Layout Group</strong> su Canvas in modalità World Space — così vive nel 3D insieme al pallone, non sovrapposta come HUD. I pannelli sono prefab istanziati a runtime, ciascuno con il proprio testo <strong>TextMeshPro</strong> e il proprio script che conosce il valore che rappresenta.
+        </p>
+
+      </div>
+
+      <div class="box thm fade">
+        <div class="box-label">AUDIO & FEEDBACK — AudioSource & Animator</div>
+        <div class="box-title">Il rimbalzo, il goal, l'errore</div>
+        <p>
+          Ogni evento di gioco ha un suono: il kick del pallone, il thud sull'impatto, la fanfara del goal, il buzz dell'errore. <strong>AudioSource</strong> con clip diverse e pitch randomizzato per il realismo. I pannelli hanno un <strong>Animator</strong> con due stati — idle e hit — che triggerano rispettivamente un'animazione verde (risposta corretta) o rossa (sbagliata).
+        </p>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── § 03 — CHALLENGE 1: LLM ─── -->
+  <section class="content fade" id="challenge1">
+    <div class="sec-wrap">
+      <span class="sec-num">§ 03</span>
+      <h2>Challenge 1 — Generare le Domande con un LLM</h2>
+    </div>
+
+    <p class="section-intro">
+      Invece di un database statico di domande, SoccerFlaw le genera in tempo reale usando un Large Language Model. Lo strumento scelto è <strong>Cheshire Cat AI</strong>, un framework open-source che espone un LLM tramite API REST e WebSocket.
+    </p>
+
+    <div class="theory-boxes">
+
+      <div class="box curiosity fade">
+        <div class="box-label">STRUMENTO — Cheshire Cat AI</div>
+        <div class="box-title">Un LLM locale con API pronta</div>
+        <p>
+          <a href="https://cheshirecat.ai/" target="_blank" rel="noopener" style="color:var(--purple);font-weight:600;">Cheshire Cat AI</a> è un framework che wrappa qualsiasi LLM (GPT-4, Claude, LLaMA, Mistral…) in un server con REST API e WebSocket. Si avvia in Docker, si configura con un file YAML, e risponde in JSON strutturato. Perfetto per Unity: non serve gestire autenticazione complessa, rate limit o SDK specifici — basta una chiamata HTTP.
+        </p>
+        <p>
+          Il Cat gira in locale o su un server della scuola, quindi niente dati sensibili degli studenti escono dall'infrastruttura. Questo è rilevante in un contesto educativo.
+        </p>
+      </div>
+
+      <div class="box def fade">
+        <div class="box-label">FLUSSO — Come funziona in Unity</div>
+        <div class="box-title">Da prompt a pannelli a runtime</div>
+        <p>
+          Il Game Manager, a ogni nuovo round, invia al Cat una richiesta con un prompt strutturato: materia, difficoltà, argomento corrente. Il Cat risponde con un JSON che contiene la domanda, la risposta corretta e tre distrattori. Unity deserializza la risposta con <code>JsonUtility</code> e popola i pannelli della griglia.
+        </p>
+        <p>
+          Le domande variano a ogni partita e non richiedono un database da mantenere.
+        </p>
+        <div class="fc">
+          <div class="fc-hdr">// prompt template → Cheshire Cat</div>
+          <div class="fc-math">
+            POST /message<br/>
+            {<br/>
+            &nbsp;&nbsp;"text": "Genera una domanda di {materia}<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;per livello {difficoltà}. Rispondi SOLO<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;in JSON: {question, correct, wrong[3]}"<br/>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="box prop fade">
+        <div class="box-label">ADATTIVITÀ — Difficoltà dinamica</div>
+        <div class="box-title">Il LLM calibra la sfida</div>
+        <p>
+          Il prompt include lo storico delle ultime risposte del giocatore — quante corrette, su quali argomenti, con quale velocità. Il LLM può quindi alzare o abbassare la difficoltà in modo naturale, senza logica hardcoded. È una forma primitiva ma funzionale di <strong>Dynamic Difficulty Adjustment</strong> generato dal linguaggio, non da regole.
+        </p>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── § 04 — CHALLENGE 2: JOYSTICK WEBAPP ─── -->
+  <section class="content fade" id="challenge2">
+    <div class="sec-wrap">
+      <span class="sec-num">§ 04</span>
+      <h2>Challenge 2 — Il Telefono come Joystick</h2>
+    </div>
+
+    <p class="section-intro">
+      Il secondo livello di sfida tecnica: il giocatore non usa la tastiera né il mouse, ma uno swipe sul proprio smartphone. Una webapp leggera sul telefono comunica in tempo reale con Unity tramite WebSocket, trasformando il gesto in forza fisica sul pallone.
+    </p>
+
+    <div class="theory-boxes">
+
+      <div class="box thm fade">
+        <div class="box-label">ARCHITETTURA — WebSocket tra browser e Unity</div>
+        <div class="box-title">Due processi, un gesto</div>
+        <p>
+          Unity avvia un <strong>WebSocket server</strong> locale (con NativeWebSocket o WebSocketSharp). La webapp — una pagina HTML/JS servita da Unity stesso o da un server locale — si connette all'IP del PC tramite browser. Quando il giocatore fa uno swipe, la webapp calcola il vettore del gesto (deltaX, deltaY, velocità) e lo invia come messaggio JSON. Unity lo riceve e lo converte in <code>AddForce()</code>.
+        </p>
+        <p>
+          Latenza sotto i 20ms su rete locale: abbastanza reattivo da sembrare immediato.
+        </p>
+        <div class="fc">
+          <div class="fc-hdr">// webapp → Unity via WebSocket</div>
+          <div class="fc-math">
+            touchend → calcola vettore swipe<br/>
+            ws.send(JSON.stringify({<br/>
+            &nbsp;&nbsp;dx: endX - startX,<br/>
+            &nbsp;&nbsp;dy: endY - startY,<br/>
+            &nbsp;&nbsp;speed: distance / duration<br/>
+            }))<br/>
+            <br/>
+            // Unity:<br/>
+            rb.AddForce(new Vector3(dx, 0, dy)<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* speed * kickMultiplier,<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ForceMode.Impulse);
+          </div>
+        </div>
+      </div>
+
+      <div class="box curiosity fade">
+        <div class="box-label">UX — La webapp controller</div>
+        <div class="box-title">La webapp controller</div>
+        <p>
+          La webapp mostra uno sfondo scuro, un cerchio che rappresenta il pallone e la domanda corrente sincronizzata via WebSocket. Il giocatore fa swipe nella direzione in cui vuole tirare. La direzione e la velocità dello swipe vengono tradotte nel vettore forza inviato a Unity.
+        </p>
+      </div>
+
+      <div class="box def fade">
+        <div class="box-label">SYNC — Stato condiviso tra dispositivi</div>
+        <div class="box-title">Il telefono vede quello che vede Unity</div>
+        <p>
+          Lo stesso canale WebSocket viene usato in entrambe le direzioni. Unity invia alla webapp la domanda corrente, il punteggio, e gli eventi di gioco (goal, errore, nuova domanda). Il telefono diventa uno <strong>schermo secondario</strong> sincronizzato — il giocatore guarda il PC per vedere il pallone e il campo, e guarda il telefono solo per tirare.
+        </p>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── § 05 — LINK ─── -->
+  <section class="content fade" id="contact">
+    <div class="sec-wrap">
+      <span class="sec-num">§ 05</span>
+      <h2>Link & Risorse</h2>
+    </div>
+    <div class="contact-links-grid">
+      <a class="contact-pill" href="https://cheshirecat.ai/" target="_blank">
+        <span class="cp-icon">CAT</span>
+        <span>Cheshire Cat AI</span>
+        <span class="cp-arrow">→</span>
+      </a>
+      <a class="contact-pill" href="https://unity.com/" target="_blank">
+        <span class="cp-icon">U3D</span>
+        <span>Unity Engine</span>
+        <span class="cp-arrow">→</span>
+      </a>
+      <a class="contact-pill" href="https://github.com/endel/NativeWebSocket" target="_blank">
+        <span class="cp-icon">WS</span>
+        <span>NativeWebSocket (Unity)</span>
+        <span class="cp-arrow">→</span>
+      </a>
+      <a class="contact-pill" href="https://docs.unity3d.com/Manual/RigidbodiesOverview.html" target="_blank">
+        <span class="cp-icon">PHY</span>
+        <span>Unity Physics Docs</span>
+        <span class="cp-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="site-footer">
+    <span class="footer-code" id="c-footer-text">SoccerFlaw · Serious Game · Unity &middot; <span id="yr"></span></span>
+    <span class="footer-eq">rb.AddForce(swipe * power)</span>
+  </footer>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // ─── DYNAMIC SLIDER LOADER ──────────────────────────
+    function loadSliderImages(config) {
+      const { folder, ext, altPrefix, trackId, wrapId, prevId, nextId, dotsId, counterId, maxProbe = 60 } = config;
+      const slidesEl = document.getElementById(trackId);
+      const dotsEl   = document.getElementById(dotsId);
+      if (!slidesEl || !dotsEl) return;
+
+      let index = 0;
+      let loaded = [];
+
+      function probeNext() {
+        if (index > maxProbe) { build(); return; }
+        const src = folder ? `${folder}/${index}.${ext}` : `${index}.${ext}`;
+        const img = new Image();
+        img.onload  = () => { loaded.push({ src, i: index }); index++; probeNext(); };
+        img.onerror = () => { if (index === 0) { index++; probeNext(); } else { build(); } };
+        img.src = src;
+      }
+
+      function build() {
+        if (loaded.length === 0) return;
+        slidesEl.innerHTML = loaded.map((s, i) =>
+          `<div class="slide"><img src="${s.src}" alt="${altPrefix} ${s.i}" draggable="false"/></div>`
+        ).join('');
+        dotsEl.innerHTML = loaded.map((_, i) =>
+          `<span class="sl-dot${i === 0 ? ' active' : ''}" data-idx="${i}"></span>`
+        ).join('');
+        const counter = document.getElementById(counterId);
+        if (counter) counter.textContent = `1 / ${loaded.length}`;
+        makeSlider({ trackId, wrapId, prevId, nextId, dotsId, counterId });
+      }
+
+      probeNext();
+    }
+
+    // ─── SLIDER FACTORY ─────────────────────────────────
+    function makeSlider({ trackId, wrapId, prevId, nextId, dotsId, counterId }) {
+      const track   = document.getElementById(trackId);
+      const wrap    = document.getElementById(wrapId);
+      const prevBtn = document.getElementById(prevId);
+      const nextBtn = document.getElementById(nextId);
+      const dotsEl  = document.getElementById(dotsId);
+      const counter = document.getElementById(counterId);
+      if (!track || !wrap) return;
+
+      const slides = track.querySelectorAll('.slide');
+      const total  = slides.length;
+      if (total === 0) return;
+      let current = 0;
+
+      function goTo(idx) {
+        current = ((idx % total) + total) % total;
+        const slideW = wrap.offsetWidth;
+        track.style.transform = `translateX(-${current * slideW}px)`;
+        if (counter) counter.textContent = `${current + 1} / ${total}`;
+        if (dotsEl) dotsEl.querySelectorAll('.sl-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+      }
+
+      prevBtn && prevBtn.addEventListener('click', () => goTo(current - 1));
+      nextBtn && nextBtn.addEventListener('click', () => goTo(current + 1));
+      if (dotsEl) dotsEl.querySelectorAll('.sl-dot').forEach(d => d.addEventListener('click', () => goTo(+d.dataset.idx)));
+
+      // swipe
+      let startX = null, isDragging = false;
+      wrap.addEventListener('pointerdown', e => { startX = e.clientX; isDragging = false; wrap.setPointerCapture(e.pointerId); });
+      wrap.addEventListener('pointermove', e => {
+        if (startX === null) return;
+        const dx = e.clientX - startX;
+        if (!isDragging && Math.abs(dx) > 6) isDragging = true;
+        if (isDragging) { track.style.transition = 'none'; track.style.transform = `translateX(${-(current * wrap.offsetWidth) + dx}px)`; }
+      });
+      wrap.addEventListener('pointerup', e => {
+        if (startX === null) return;
+        const dx = e.clientX - startX;
+        track.style.transition = '';
+        Math.abs(dx) > 50 ? (dx < 0 ? goTo(current + 1) : goTo(current - 1)) : goTo(current);
+        startX = null; isDragging = false;
+      });
+      wrap.addEventListener('pointercancel', () => { track.style.transition = ''; goTo(current); startX = null; });
+      wrap.setAttribute('tabindex', '0');
+      wrap.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') goTo(current-1); if (e.key === 'ArrowRight') goTo(current+1); });
+
+      goTo(0);
+    }
+
+    // ─── BOOT SLIDER ────────────────────────────────────
+    // Metti le immagini nella stessa cartella dell'HTML: 0.jpg, 1.jpg, 2.jpg …
+    loadSliderImages({
+      folder: 'images',
+      ext: 'jpg',
+      altPrefix: 'SoccerFlaw screenshot',
+      trackId: 'sfSlides', wrapId: 'sfTrack',
+      prevId: 'sfPrev',    nextId: 'sfNext',
+      dotsId: 'sfDots',    counterId: 'sfCounter',
+      maxProbe: 60
+    });
+
+    // Fade observer
+    const fader = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('vis');
+        fader.unobserve(entry.target);
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade').forEach(el => fader.observe(el));
+
+    // Nav active
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const navObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => {
+            a.style.color = a.getAttribute('href') === '#' + entry.target.id ? 'var(--yellow)' : '';
+          });
+        }
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('section[id]').forEach(s => navObs.observe(s));
+
+    // Ball animation in hero
+    const ball = document.querySelector('.sh-ball');
+    if (ball) {
+      let frame = 0;
+      setInterval(() => {
+        frame++;
+        const bounce = Math.abs(Math.sin(frame * 0.06)) * 8;
+        ball.style.transform = `translateY(-${bounce}px)`;
+      }, 30);
+    }
+  </script>
+</body>
+</html>
